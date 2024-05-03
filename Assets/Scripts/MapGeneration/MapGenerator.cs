@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public enum DrawMode { NoiseMap, ColorMap, Mesh, FalloffMap };
-    [HideInInspector]
+    //[HideInInspector]
     public DrawMode drawMode;
     public int mapWidth;
     public int mapHeight;
