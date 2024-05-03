@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-    public MapGenerator mapGenerator;
+    private MapGenerator mapGenerator;
     //public PopulationManager popManager;
     //public BushController bushController;
     private void Awake()
     {
+        mapGenerator = GetComponent<MapGenerator>();
         mapGenerator.GenerateMap();
-      
-        
     }
     void Update()
     {
