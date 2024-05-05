@@ -15,6 +15,9 @@ public static class Utils
     }
     public static bool IsOutOfBounds(Vector3 obj)
     {
-        return (obj.x >= Spawner.instance.planeX * 5) || (obj.z >= Spawner.instance.planeZ * 5) || (obj.x <= -Spawner.instance.planeX * 5) || (obj.z <= -Spawner.instance.planeZ * 5);
+        return (obj.x >= mapX - (mapX / 2)) || (obj.z >= mapZ - (mapZ / 2)) || (obj.x <= -mapX - (mapX / 2)) || (obj.z <= -mapZ - (mapZ / 2)); 
+        //|| (noiseMap[(int)obj.x, (int)obj.z] <= 0.35f);
     }
+    public static float[,] noiseMap;
+    public static int mapX, mapZ;
 }

@@ -40,6 +40,7 @@ public class Creature : MonoBehaviour
         agent.stateMachine.ChangeState(AiStateId.Wander);
         render.material.color = isFemale ? new Color(1f, 0.25f, 0.96f, 1f) : new Color(0.19f, 0.23f, 0.92f, 1f);
         canvas = GetComponentInChildren<Canvas>();
+        Debug.Log($"Hello I am: {transform.position}");
     }
     void InitGenes(DNA dna)
     {
@@ -136,10 +137,10 @@ public class Creature : MonoBehaviour
     {
         agent.stateMachine.ChangeState(AiStateId.Dead);
     }
-    private bool IsOutOfBounds(Vector3 obj)
-    {
-        return (obj.x >= Spawner.instance.planeX * 5) || (obj.z >= Spawner.instance.planeZ * 5) || (obj.x <= -Spawner.instance.planeX * 5) || (obj.z <= -Spawner.instance.planeZ * 5);
-    }
+    // private bool IsOutOfBounds(Vector3 obj)
+    // {
+    //     return (obj.x >= Spawner.instance.planeX * 5) || (obj.z >= Spawner.instance.planeZ * 5) || (obj.x <= -Spawner.instance.planeX * 5) || (obj.z <= -Spawner.instance.planeZ * 5);
+    // }
     // private void OnDestroy()
     // {
     //     if (transform.childCount > 0)

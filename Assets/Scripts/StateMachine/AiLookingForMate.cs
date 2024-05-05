@@ -39,6 +39,7 @@ public class AiLookingForMate : AiState
             agent.stateMachine.ChangeState(AiStateId.Wander);
         }
         if (Utils.IsOutOfBounds(roamPosition)) roamPosition = GetRoamingPosition(agent);
+        Debug.Log(Utils.IsOutOfBounds(roamPosition));
         agent.creature.roamPosition = roamPosition;
     }
     private Vector3 GetRoamingPosition(AiAgent agent)

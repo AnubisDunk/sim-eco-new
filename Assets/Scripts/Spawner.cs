@@ -1,3 +1,4 @@
+
 using UnityEditor;
 using UnityEngine;
 
@@ -7,37 +8,32 @@ public class Spawner : MonoBehaviour
     public GameObject cube;
     public GameObject sphere;
     public GameObject foodPref;
+    public GameObject waterPref;
 
     public int carnivore, herbivore = 0;
     public int food = 20;
-    public GameObject plane;
-    public float planeX, planeZ = 1f;
-    public float spawnX, spawnZ = 1f;
-    public GameObject spawnZone;
     public int seed = 10;
 
-    private float posX, posZ;
-   
-    private void Awake() 
-{ 
-    
-    if (instance != null && instance != this) 
-    { 
-        Destroy(this); 
-    } 
-    else 
-    { 
-        instance = this; 
-    } 
-}    void Start()
+    //private float posX, posZ;
+
+    private void Awake()
+    {
+
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    void Start()
     {
         Random.InitState(seed);
-        posX = spawnX * 4.5f;
-        posZ = spawnZ * 4.5f;
-        //plane.transform.localScale = new Vector3(planeX, 1, planeZ);
-        spawnZone.transform.localScale = new Vector3(spawnX, 1, spawnZ);
-        SpawnCreature(herbivore,carnivore);
+        SpawnCreature(herbivore, carnivore);
         SpawnFood(food);
+        SpawnWater();
 
     }
 
@@ -45,39 +41,61 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         Controls();
-        
+
     }
-    private void SpawnCreature(int herbivore,int carnivore)
+    private void SpawnCreature(int herbivore, int carnivore)
     {
-        for (int i = 0; i < herbivore; i++)
+
+        SpawnOnNoise(sphere, 0.65f, herbivore, GlobalEventManager.SendCreatureBorn);
+        SpawnOnNoise(cube, 0.65f, carnivore, GlobalEventManager.SendCreatureBorn);
+        // instance.name = $"H{i}";
+    }
+    private void SpawnWater()
+    {
+        int mapZ = Utils.mapZ;
+        int mapX = Utils.mapX;
+        float[,] noiseMap = Utils.noiseMap;
+        for (int y = 0; y < mapZ; y+=2)
         {
-            Vector3 randomPos = new(Random.Range(-posX, posX), 0, Random.Range(-posZ, posZ));
-            var instance = Instantiate(sphere, randomPos, Quaternion.identity);
-            instance.name = $"H{i}";
-            GlobalEventManager.SendCreatureBorn();
-            
+            for (int x = 0; x < mapX; x+=2)
+            {
+                if (noiseMap[x, y] <= 0.35f && noiseMap[x, y] >= 0.3f)
+                {
+                    Instantiate(waterPref, new Vector3(x - (mapX / 2), 1, (y * -1) + (mapZ / 2)), Quaternion.identity);
+                }
+            }
         }
-         for (int i = 0; i < carnivore; i++)
+        // instance.name = $"H{i}";
+    }
+    void SpawnOnNoise(GameObject instance, float limit, int count, System.Action sendSmth)
+    {
+        int tempCount = 0;
+        float[,] noiseMap = Utils.noiseMap;
+        int posX = Utils.mapX;
+        int posZ = Utils.mapZ;
+        while (tempCount < count)
         {
-            Vector3 randomPos = new(Random.Range(-posX, posX), 0, Random.Range(-posZ, posZ));
-            var instance = Instantiate(cube, randomPos, Quaternion.identity);
-            instance.name = $"C{i}";
-            GlobalEventManager.SendCreatureBorn();
+            int spawnx = Random.Range(0, posX);
+            int spawny = Random.Range(0, posZ);
+            if (noiseMap[spawnx, spawny] > limit)
+            {
+                Instantiate(instance, new Vector3((spawnx * 1) - (posX / 2), 1, (spawny * -1) + (posZ / 2)), Quaternion.identity);
+                tempCount++;
+                sendSmth.Invoke();
+            }
+
         }
     }
-    private void SpawnFood(int foodCount) {
-         for (int i = 0; i < foodCount; i++)
-        {
-            Vector3 randomPos = new(Random.Range(-posX, posX), 0, Random.Range(-posZ, posZ));
-            var foodInstance = Instantiate(foodPref, randomPos, Quaternion.identity);
-            GlobalEventManager.SendFood();
-            
-        }
+    private void SpawnFood(int foodCount)
+    {
+        SpawnOnNoise(foodPref, 0.65f, foodCount, GlobalEventManager.SendFood);
     }
-    void Controls(){
-        if (Input.GetKeyDown(KeyCode.Space)) {
+
+    void Controls()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             GlobalEventManager.SendPause();
-        } 
-       // if(Input.GetKeyDown(KeyCode.S)) SpawnCreature(1,1);
-    }  
+        }
+    }
 }
