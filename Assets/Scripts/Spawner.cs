@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
         Random.InitState(seed);
         posX = spawnX * 4.5f;
         posZ = spawnZ * 4.5f;
-        plane.transform.localScale = new Vector3(planeX, 1, planeZ);
+        //plane.transform.localScale = new Vector3(planeX, 1, planeZ);
         spawnZone.transform.localScale = new Vector3(spawnX, 1, spawnZ);
         SpawnCreature(herbivore,carnivore);
         SpawnFood(food);
@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < herbivore; i++)
         {
-            Vector3 randomPos = new(Random.Range(-posX, posX), 1, Random.Range(-posZ, posZ));
+            Vector3 randomPos = new(Random.Range(-posX, posX), 0, Random.Range(-posZ, posZ));
             var instance = Instantiate(sphere, randomPos, Quaternion.identity);
             instance.name = $"H{i}";
             GlobalEventManager.SendCreatureBorn();
@@ -59,7 +59,7 @@ public class Spawner : MonoBehaviour
         }
          for (int i = 0; i < carnivore; i++)
         {
-            Vector3 randomPos = new(Random.Range(-posX, posX), 1, Random.Range(-posZ, posZ));
+            Vector3 randomPos = new(Random.Range(-posX, posX), 0, Random.Range(-posZ, posZ));
             var instance = Instantiate(cube, randomPos, Quaternion.identity);
             instance.name = $"C{i}";
             GlobalEventManager.SendCreatureBorn();
@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour
     private void SpawnFood(int foodCount) {
          for (int i = 0; i < foodCount; i++)
         {
-            Vector3 randomPos = new(Random.Range(-posX, posX), 1, Random.Range(-posZ, posZ));
+            Vector3 randomPos = new(Random.Range(-posX, posX), 0, Random.Range(-posZ, posZ));
             var foodInstance = Instantiate(foodPref, randomPos, Quaternion.identity);
             GlobalEventManager.SendFood();
             

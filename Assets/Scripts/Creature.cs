@@ -25,7 +25,6 @@ public class Creature : MonoBehaviour
     public float size, rest, hunger, hungerCeil, hungerSpeed, growSpeed, restSpeed;
     public float senseRadius;
     public bool isReadyToMate = false;
-    //public List<GameObject> bushes;
     public TMP_Text uiTextState;
     public RectTransform uiHunger;
     private SphereCollider scollider;

@@ -39,13 +39,4 @@ public class SelectObject : MonoBehaviour
             }
         }
     }
-    private void OnDrawGizmos()
-    {
-        Vector3 origin = transform.position;
-#if UNITY_EDITOR
-        Handles.color = Color.red;
-        Handles.DrawLine(Input.mousePosition, cast);
-#endif
-
-    }
 }
