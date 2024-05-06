@@ -34,6 +34,9 @@ public class Spawner : MonoBehaviour
         SpawnCreature(herbivore, carnivore);
         SpawnFood(food);
         SpawnWater();
+        Instantiate(foodPref,new Vector3(0, 5, 0),Quaternion.identity);
+        Debug.Log($"{Utils.noiseMap[0,0]}");
+        //Instantiate(foodPref,new Vector3(Utils.noiseMap[30,30], 5, 30),Quaternion.identity);
 
     }
 
@@ -45,29 +48,32 @@ public class Spawner : MonoBehaviour
     }
     private void SpawnCreature(int herbivore, int carnivore)
     {
-
-        SpawnOnNoise(sphere, 0.65f, herbivore, GlobalEventManager.SendCreatureBorn);
-        SpawnOnNoise(cube, 0.65f, carnivore, GlobalEventManager.SendCreatureBorn);
+        GameObject creatureHolder = new("CreatureHolder");
+        creatureHolder.transform.parent = transform;
+        SpawnOnNoise(sphere, 0.65f, herbivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
+        SpawnOnNoise(cube, 0.65f, carnivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
         // instance.name = $"H{i}";
     }
     private void SpawnWater()
     {
+        GameObject waterHolder = new("WaterHolder");
+        waterHolder.transform.parent = transform;
         int mapZ = Utils.mapZ;
         int mapX = Utils.mapX;
         float[,] noiseMap = Utils.noiseMap;
-        for (int y = 0; y < mapZ; y+=2)
+        for (int y = 0; y < mapZ; y++)
         {
-            for (int x = 0; x < mapX; x+=2)
+            for (int x = 0; x < mapX; x++)
             {
-                if (noiseMap[x, y] <= 0.35f && noiseMap[x, y] >= 0.3f)
+                if (noiseMap[x, y] <= 0.35f && noiseMap[x, y] >= 0.25f)
                 {
-                    Instantiate(waterPref, new Vector3(x - (mapX / 2), 1, (y * -1) + (mapZ / 2)), Quaternion.identity);
+                    Instantiate(waterPref, new Vector3(x - (mapX / 2), 1, (y * -1) + (mapZ / 2)), Quaternion.identity, waterHolder.transform);
                 }
             }
         }
         // instance.name = $"H{i}";
     }
-    void SpawnOnNoise(GameObject instance, float limit, int count, System.Action sendSmth)
+    void SpawnOnNoise(GameObject instance, float limit, int count, System.Action sendSmth, GameObject holder)
     {
         int tempCount = 0;
         float[,] noiseMap = Utils.noiseMap;
@@ -79,7 +85,7 @@ public class Spawner : MonoBehaviour
             int spawny = Random.Range(0, posZ);
             if (noiseMap[spawnx, spawny] > limit)
             {
-                Instantiate(instance, new Vector3((spawnx * 1) - (posX / 2), 1, (spawny * -1) + (posZ / 2)), Quaternion.identity);
+                Instantiate(instance, new Vector3((spawnx * 1) - (posX / 2), 1, (spawny * -1) + (posZ / 2)), Quaternion.identity, holder.transform);
                 tempCount++;
                 sendSmth.Invoke();
             }
@@ -88,7 +94,9 @@ public class Spawner : MonoBehaviour
     }
     private void SpawnFood(int foodCount)
     {
-        SpawnOnNoise(foodPref, 0.65f, foodCount, GlobalEventManager.SendFood);
+        GameObject foodHolder = new("FoodHolder");
+        foodHolder.transform.parent = transform;
+        SpawnOnNoise(foodPref, 0.4f, foodCount, GlobalEventManager.SendFood,foodHolder);
     }
 
     void Controls()

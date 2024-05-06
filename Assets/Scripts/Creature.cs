@@ -4,6 +4,7 @@ using UnityEditor;
 using TMPro;
 using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections.Generic;
+using System;
 
 
 public class Creature : MonoBehaviour
@@ -19,14 +20,19 @@ public class Creature : MonoBehaviour
     //public bool isSelected = false;
     public bool isSelectedByMale = false;
     public DNA creatureDna;
+
+    [Range(0, 1)]
+    public float dLevel = 0.3f;
     public bool isFemale = false;
     public Creature desiredCreature;
     public Renderer render;
-    public float size, rest, hunger, hungerCeil, hungerSpeed, growSpeed, restSpeed;
+    public float size, rest, hunger, hungerCeil, hungerSpeed, thirst, thirstCeil, thirstSpeed, growSpeed, restSpeed;
     public float senseRadius;
     public bool isReadyToMate = false;
     public TMP_Text uiTextState;
     public RectTransform uiHunger;
+    public RectTransform uiThirst;
+    public bool isHungry, isThirsty;
     private SphereCollider scollider;
     private Canvas canvas;
 
@@ -40,7 +46,6 @@ public class Creature : MonoBehaviour
         agent.stateMachine.ChangeState(AiStateId.Wander);
         render.material.color = isFemale ? new Color(1f, 0.25f, 0.96f, 1f) : new Color(0.19f, 0.23f, 0.92f, 1f);
         canvas = GetComponentInChildren<Canvas>();
-        Debug.Log($"Hello I am: {transform.position}");
     }
     void InitGenes(DNA dna)
     {
@@ -100,8 +105,23 @@ public class Creature : MonoBehaviour
     }
     void States()
     {
-        if (hunger >= hungerCeil / 4f && agent.stateMachine.currentState != AiStateId.LookingForFood) agent.stateMachine.ChangeState(AiStateId.LookingForFood);
-        if (hunger <= hungerCeil / 4f && agent.creature.isReadyToMate && agent.stateMachine.currentState != AiStateId.LookingForMate) agent.stateMachine.ChangeState(AiStateId.LookingForMate);
+        if ((hunger >= hungerCeil * dLevel) && !isHungry)
+        {
+            if (agent.stateMachine.currentState != AiStateId.LookingForFood)
+            {
+                isHungry = true;
+                agent.stateMachine.ChangeState(AiStateId.LookingForFood);
+            }
+        }
+
+        if (thirst >= thirstCeil * dLevel && !isHungry)
+        {
+            if (agent.stateMachine.currentState != AiStateId.LookingForWater)
+                agent.stateMachine.ChangeState(AiStateId.LookingForWater);
+        }
+
+        if (hunger <= hungerCeil * dLevel && thirst <= thirstCeil * dLevel && !isHungry && agent.creature.isReadyToMate && agent.stateMachine.currentState != AiStateId.LookingForMate)
+            agent.stateMachine.ChangeState(AiStateId.LookingForMate);
     }
 
     void Living()
@@ -113,42 +133,21 @@ public class Creature : MonoBehaviour
             hunger += Time.deltaTime * hungerSpeed;
             uiHunger.localScale = new Vector3(hunger / 100f, 1, 1);
         }
-        if (hunger >= hungerCeil && agent.stateMachine.currentState != AiStateId.Dead) Kill();
+        if (thirst <= thirstCeil)
+        {
+            thirst += Time.deltaTime * thirstSpeed;
+            uiThirst.localScale = new Vector3(thirst / 100f, 1, 1);
+        }
+        if ((hunger >= hungerCeil || thirst >= thirstCeil) && agent.stateMachine.currentState != AiStateId.Dead) Kill();
         isReadyToMate = size >= 100 && rest >= 100;
 
     }
-    // void SelectionCheck()
-    // {
-    //     if (isSelected)
-    //     {
-    //         // senseRadiusDrawer.transform.position = transform.position;
-    //         // sr.DrawCircle(100, senseRadius);
-    //     }
-    // }
-    // // void DestroyController()
-    // // {
-    // //     if (Input.GetKeyDown(KeyCode.D)) Kill();
-    // //     if ((transform.position.y <= -10) || IsOutOfBounds(transform.position))
-    // //     {
-    // //         Kill();
-    // //     }
-    // // }
+
     public void Kill()
     {
         agent.stateMachine.ChangeState(AiStateId.Dead);
     }
-    // private bool IsOutOfBounds(Vector3 obj)
-    // {
-    //     return (obj.x >= Spawner.instance.planeX * 5) || (obj.z >= Spawner.instance.planeZ * 5) || (obj.x <= -Spawner.instance.planeX * 5) || (obj.z <= -Spawner.instance.planeZ * 5);
-    // }
-    // private void OnDestroy()
-    // {
-    //     if (transform.childCount > 0)
-    //     {
-    //         transform.DetachChildren();
-    //     }
-    //     GlobalEventManager.SendCreatureKilled();
-    // }
+
     public void DestroyCreature()
     {
         Destroy(gameObject);
@@ -164,10 +163,4 @@ public class Creature : MonoBehaviour
 #endif
 
     }
-    // public void OnTriggerExit(Collider other){
-    //     if (other.gameObject.CompareTag("Bush") && other.gameObject.GetComponent<Food>().isReadyToEat)
-    //     {
-    //         agent.creature.bushes.Remove(other.gameObject);
-    //     } 
-    // }
 }

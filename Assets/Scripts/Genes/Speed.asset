@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   geneName: Speed
   minValue: 1
-  maxValue: 5
+  maxValue: 10

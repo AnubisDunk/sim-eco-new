@@ -19,6 +19,7 @@ public class AiAgent : MonoBehaviour
         stateMachine.RegisterState(new AiDeathState());
         stateMachine.RegisterState(new AiHungryState());
         stateMachine.RegisterState(new AiLookingForMate());
+        stateMachine.RegisterState(new AiLookingForWater());
         stateMachine.ChangeState(initialState);
         creature.Init();
 

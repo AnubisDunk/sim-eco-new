@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Creature
   - Bush
+  - Water
   layers:
   - Default
   - TransparentFX

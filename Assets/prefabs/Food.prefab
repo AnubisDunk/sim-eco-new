@@ -70,7 +70,7 @@ MonoBehaviour:
   amplitude: 0.1
   frequency: 0.2
   isReadyToEat: 0
-  growingSpeed: 5
+  growingSpeed: 10
   growingStatus: 0
 --- !u!1 &1885645786037008877
 GameObject:

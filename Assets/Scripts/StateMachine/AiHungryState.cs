@@ -37,6 +37,7 @@ public class AiHungryState : AiState
             food.Eat();
             agent.creature.hunger = 0;
             isFoundFood = false;
+            agent.creature.isHungry = false;
             foodPosition = GetRoamingPosition(agent);
             agent.stateMachine.ChangeState(AiStateId.Wander);
         }
