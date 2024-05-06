@@ -25,11 +25,13 @@ public class UI : MonoBehaviour
     private void CreatureKilled()
     {
         creatureCount--;
+        Utils.creatureCount--;
         LCreatures.text = $"Creatures:{creatureCount}";
     }
     private void CreatureBorn()
     {
         creatureCount++;
+        Utils.creatureCount++;
         LCreatures.text = $"Creatures:{creatureCount}";
     }
     private void Food()

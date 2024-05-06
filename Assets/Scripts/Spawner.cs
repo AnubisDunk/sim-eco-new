@@ -34,8 +34,8 @@ public class Spawner : MonoBehaviour
         SpawnCreature(herbivore, carnivore);
         SpawnFood(food);
         SpawnWater();
-        Instantiate(foodPref,new Vector3(0, 5, 0),Quaternion.identity);
-        Debug.Log($"{Utils.noiseMap[0,0]}");
+        // Instantiate(foodPref,new Vector3(0, 5, 0),Quaternion.identity);
+        // Debug.Log($"{Utils.noiseMap[0,0]}");
         //Instantiate(foodPref,new Vector3(Utils.noiseMap[30,30], 5, 30),Quaternion.identity);
 
     }
