@@ -10,8 +10,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="SideMenu" style="flex-grow: 1;" />
         <ui:VisualElement name="BottomMenu" class="menuBg" style="flex-grow: 0; align-items: center; justify-content: flex-end; flex-direction: column; flex-wrap: nowrap; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: upper-left; flex-basis: auto; align-self: stretch;">
-            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header2" class="header" />
-            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header" class="header" />
+            <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header" class="header" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

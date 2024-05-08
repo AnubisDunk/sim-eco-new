@@ -11,12 +11,8 @@ public class Food : MonoBehaviour
     [SerializeField]
     private float growingStatus = 0;
 
-    private Vector3 posOffset = new();
-    private Vector3 tempPos = new();
-
     private Renderer render;
-    private Transform model;
-    private SphereCollider col;
+    private BoxCollider col;
 
     public void Eated()
     {
@@ -25,18 +21,15 @@ public class Food : MonoBehaviour
     }
     void Start()
     {
-        model = transform.GetChild(0);
-        col = GetComponent<SphereCollider>();
+        col = GetComponent<BoxCollider>();
         col.enabled = false;
         growingStatus = 100;
-        posOffset = model.transform.position;
-        render = model.GetComponent<Renderer>();
+        render = GetComponent<Renderer>();
 
     }
 
     void Update()
     {
-        Floating();
         Grow();
     }
     public void Eat(){
@@ -58,11 +51,5 @@ public class Food : MonoBehaviour
             col.enabled = true;
         }
 
-    }
-    void Floating()
-    {
-        tempPos = posOffset;
-        tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
-        model.position = tempPos;
     }
 }

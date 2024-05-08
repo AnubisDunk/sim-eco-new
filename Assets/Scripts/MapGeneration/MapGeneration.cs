@@ -23,10 +23,10 @@ public class MapGeneration : MonoBehaviour
     public TerrainType[] regions;
     private Color[] colorMap;
 
-    public Renderer texRender;
-    public MeshFilter meshFilter;
-    public MeshRenderer meshRenderer;
-    public MeshCollider meshCollider;
+    private Renderer texRender;
+    private MeshFilter meshFilter;
+    private MeshRenderer meshRenderer;
+    private MeshCollider meshCollider;
     //private Color[] pix;
     void Awake()
     {

@@ -44,7 +44,7 @@ public class Creature : MonoBehaviour
         scollider = GetComponent<SphereCollider>();
         scollider.radius = senseRadius;
         agent.stateMachine.ChangeState(AiStateId.Wander);
-        render.material.color = isFemale ? new Color(1f, 0.25f, 0.96f, 1f) : new Color(0.19f, 0.23f, 0.92f, 1f);
+        render.materials[1].color = isFemale ? new Color(1f, 0.25f, 0.96f, 1f) : new Color(0.19f, 0.23f, 0.92f, 1f);
         canvas = GetComponentInChildren<Canvas>();
     }
     void InitGenes(DNA dna)
@@ -158,7 +158,7 @@ public class Creature : MonoBehaviour
 #if UNITY_EDITOR
         Handles.color = new Color(1, 1, 1, 0.4f);
         Handles.DrawWireDisc(origin, new Vector3(0, 1, 0), senseRadius);
-        Handles.DrawWireDisc(roamPosition, new Vector3(0, 1, 0), 0.1f);
+        Handles.DrawWireDisc(roamPosition, new Vector3(0, 1, 0), 0.5f);
         Handles.DrawLine(transform.position, roamPosition);
 #endif
 

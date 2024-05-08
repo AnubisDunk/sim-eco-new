@@ -17,10 +17,10 @@ public class GeneticAlgorithm
         return child;
     }
     // void Mutate(){
-    //     for (int i = 0; i < child.DNA.Length; i++)
+    //     for (int i = 0; i < father.genes.Length; i++)
     //     {
     //         if((Random.value <= mutationRate) {
-    //             float mgene = Random.Range(cg.genome[i].geneMinValue,cg.genome[i].geneMaxValue);
+    //             float mgene = Random.Range(child.genome[i].geneMinValue,cg.genome[i].geneMaxValue);
     //             child.DNA[i] = Mathf.Round(mgene * 100f) * 0.01f;
                
     //         }
