@@ -32,7 +32,7 @@ public class AiHungryState : AiState
         agent.creature.transform.LookAt(roamPosition, Vector3.up);
         if (Vector3.Distance(agent.creature.transform.position, roamPosition) < 1f) roamPosition = GetRoamingPosition(agent);
         if(isFoundFood && food.isReadyToEat) roamPosition = foodPosition;
-        if (Vector3.Distance(agent.creature.transform.position, foodPosition) < 1f && food.isReadyToEat && isFoundFood)
+        if (Vector3.Distance(agent.creature.transform.position, foodPosition) < 1f && isFoundFood && food.isReadyToEat)
         {
             food.Eat();
             agent.creature.hunger = 0;
@@ -54,12 +54,13 @@ public class AiHungryState : AiState
     }
     public void OnTriggerEnter(AiAgent agent,Collider other)
     {
-        if (other.gameObject.CompareTag("Bush") && !isFoundFood && other.gameObject.GetComponent<Food>().isReadyToEat)
+        if (other.gameObject.CompareTag("Bush") && !isFoundFood)
         {
             //agent.creature.bushes.Add(other.gameObject);
             foodPosition = other.transform.position;
             food = other.gameObject.GetComponent<Food>();
             isFoundFood = true;
+            
         } 
     }
 }

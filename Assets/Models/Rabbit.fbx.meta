@@ -3,7 +3,22 @@ guid: ed97b9e4d4c6a2e4e874d1af964951eb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: d3fc9b9f5dc8af34ba8fcd94dc457da4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fur
+    second: {fileID: 2100000, guid: e8a4e0fb6882b444abb2bb68302b3d08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tail
+    second: {fileID: 2100000, guid: 5c332a0b5945b914c82454c62ec6dff3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

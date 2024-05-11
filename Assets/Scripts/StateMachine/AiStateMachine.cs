@@ -27,6 +27,7 @@ public class AiStateMachine
     }
     public void Update(){
         GetState(currentState)?.Update(agent);
+        agent.creature.CreatureUpdate();
     }
 
     public void ChangeState(AiStateId newState) {

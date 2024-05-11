@@ -2,8 +2,6 @@
 using UnityEngine;
 using UnityEditor;
 using TMPro;
-using Microsoft.Unity.VisualStudio.Editor;
-using System.Collections.Generic;
 using System;
 
 
@@ -60,18 +58,20 @@ public class Creature : MonoBehaviour
         isFemale = creatureDna.genes[0] > 0.5f;
         moveSpeed = creatureDna.genes[1];
         senseRadius = creatureDna.genes[2];
-        creatureDna.ShowDNA();
+        //creatureDna.ShowDNA();
     }
-    void Update()
+    public void CreatureUpdate()
     {
-        //SelectionCheck();
         uiTextState.text = agent.stateMachine.currentState.ToString();
-
         canvas.transform.LookAt(Camera.main.transform);
         canvas.transform.localRotation *= Quaternion.Euler(0, 180, 0);
-        //uiHunger.transform.LookAt(Camera.main.transform);
         Living();
         States();
+        Boundries();
+    }
+    public void Boundries()
+    {
+        if (transform.position.x >= Utils.mapX / 2 || (transform.position.z >= Utils.mapZ / 2) || (transform.position.x <= -(Utils.mapX / 2)) || (transform.position.z <= -(Utils.mapZ / 2))) Kill();
     }
     public void Mating()
     {
@@ -101,7 +101,6 @@ public class Creature : MonoBehaviour
         instance.desiredCreature = null;
         instance.mother = this;
         GlobalEventManager.SendCreatureBorn();
-
     }
     void States()
     {
