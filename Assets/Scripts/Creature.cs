@@ -44,6 +44,7 @@ public class Creature : MonoBehaviour
         agent.stateMachine.ChangeState(AiStateId.Wander);
         render.materials[1].color = isFemale ? new Color(1f, 0.25f, 0.96f, 1f) : new Color(0.19f, 0.23f, 0.92f, 1f);
         canvas = GetComponentInChildren<Canvas>();
+        name = NamesReader.names[UnityEngine.Random.Range(0, NamesReader.names.Length - 1)];
     }
     void InitGenes(DNA dna)
     {
@@ -97,7 +98,7 @@ public class Creature : MonoBehaviour
         instance.hunger = 0;
         //instance.creatureDna = creatureDna;
         //Debug.Log($"{creatureDna}/ {desiredCreature.creatureDna}");
-        if (desiredCreature == null) Debug.Log("YOOOOOOO");
+        // if (desiredCreature == null) Debug.Log("YOOOOOOO");
         GeneticAlgorithm genetic = new(creatureDna, desiredCreature.creatureDna, 0.25f);
         DNA dna = genetic.Execute();
         instance.creatureDna = dna;

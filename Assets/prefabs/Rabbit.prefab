@@ -570,6 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   roamPosition: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
   creatureType: 0
   father: {fileID: 0}
   mother: {fileID: 0}
@@ -683,7 +684,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!1 &8950011191052830308
 GameObject:
   m_ObjectHideFlags: 0

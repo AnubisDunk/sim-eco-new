@@ -27,4 +27,9 @@ public class BoundCheck : MonoBehaviour
             //Debug.Log(Utils.mapX);
             //Debug.Log($"{transform.position} -> {Utils.boundMap[Mathf.RoundToInt(transform.position.x + (Utils.mapX/2)), Mathf.RoundToInt(transform.position.z * -1 + (Utils.mapZ/2))]}");
         }
+        void OnTriggerEnter(Collider other){
+            if (other.gameObject.CompareTag("Bush")){
+                Debug.Log("BUSH");
+            }
+        }
     }
