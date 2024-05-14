@@ -16,7 +16,7 @@ public class BoundCheck : MonoBehaviour
         {
             for (int y = 0; y < Utils.boundMap.GetLength(1); y++)
             {
-                if(!Utils.boundMap[x, y]) Instantiate(mark,new Vector3(x - 32,1,y * -1 + 32),Quaternion.identity);    
+                if(!Utils.boundMap[x, y]) Instantiate(mark,new Vector3(x - (Utils.mapX/2),1,y * -1 + (Utils.mapZ/2)),Quaternion.identity);    
             }
         }
     }
@@ -24,6 +24,7 @@ public class BoundCheck : MonoBehaviour
         void Update()
         {
             if(Input.GetKeyDown(KeyCode.M)) Mark();
-            Debug.Log($"{transform.position} -> {Utils.boundMap[Mathf.RoundToInt(transform.position.x + 32), Mathf.RoundToInt(transform.position.z * -1 + 32)]}");
+            //Debug.Log(Utils.mapX);
+            //Debug.Log($"{transform.position} -> {Utils.boundMap[Mathf.RoundToInt(transform.position.x + (Utils.mapX/2)), Mathf.RoundToInt(transform.position.z * -1 + (Utils.mapZ/2))]}");
         }
     }

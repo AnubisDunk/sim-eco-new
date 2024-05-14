@@ -21,6 +21,7 @@ public class AiLookingForWater : AiState
     }
     private Vector3 GetRoamingPosition(AiAgent agent)
     {
+        if(isFoundWater) return waterPosition;
         return agent.transform.position + Utils.GetRandomDir() * agent.creature.senseRadius;
     }
 
@@ -34,9 +35,7 @@ public class AiLookingForWater : AiState
     {
         if (other.gameObject.CompareTag("Water") && !isFoundWater)
         {
-            //agent.creature.bushes.Add(other.gameObject);
             waterPosition = other.transform.position;
-           // food = other.gameObject.GetComponent<Food>();
             isFoundWater = true;
         } 
     }
@@ -47,7 +46,6 @@ public class AiLookingForWater : AiState
         agent.creature.transform.position = Vector3.MoveTowards(agent.creature.transform.position, roamPosition, step);
         agent.creature.transform.LookAt(roamPosition, Vector3.up);
         if (Vector3.Distance(agent.creature.transform.position, roamPosition) < 1f) roamPosition = GetRoamingPosition(agent);
-        if(isFoundWater) roamPosition = waterPosition;
         if (Vector3.Distance(agent.creature.transform.position, waterPosition) < 1f && isFoundWater)
         {
             agent.creature.thirst = 0;

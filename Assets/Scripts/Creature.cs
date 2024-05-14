@@ -8,7 +8,7 @@ using System;
 public class Creature : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public Vector3 roamPosition;
+    public Vector3 roamPosition, lastPosition;
     public CreatureType creatureType;
 
     [SerializeField]
@@ -71,7 +71,11 @@ public class Creature : MonoBehaviour
     }
     public void Boundries()
     {
-        if (transform.position.x >= Utils.mapX / 2 || (transform.position.z >= Utils.mapZ / 2) || (transform.position.x <= -(Utils.mapX / 2)) || (transform.position.z <= -(Utils.mapZ / 2))) Kill();
+        if (transform.position.x >= Utils.mapX / 2 || (transform.position.z >= Utils.mapZ / 2) || (transform.position.x <= -(Utils.mapX / 2)) || (transform.position.z <= -(Utils.mapZ / 2)))
+        {
+            //Debug.Log("Out");
+            Kill();
+        }
     }
     public void Mating()
     {

@@ -27,10 +27,12 @@ public class MapGeneration : MonoBehaviour
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
     private MeshCollider meshCollider;
+    private Spawner spawner;
     //private Color[] pix;
     void Awake()
     {
         GenerateMap();
+       
     }
     public void GenerateMap()
     {
@@ -64,7 +66,9 @@ public class MapGeneration : MonoBehaviour
         Utils.noiseMap = noiseMap;
         Utils.mapX = mapWidth;
         Utils.mapZ = mapHeight;
-    
+        spawner = GetComponent<Spawner>();
+        spawner.enabled = true;
+
     }
     public Texture2D TextureFromHeightMap(float[,] heightMap)
     {
@@ -114,14 +118,14 @@ public class MapGeneration : MonoBehaviour
                 // }
                 // else
                 // {
-                    map[x, y] = Evaluate(value,falloffStart,falloffEnd);
-                    //map[x, y] = Mathf.SmoothStep(1, 0, Mathf.InverseLerp(falloffStart, falloffEnd, value));
-                
+                map[x, y] = Evaluate(value, falloffStart, falloffEnd);
+                //map[x, y] = Mathf.SmoothStep(1, 0, Mathf.InverseLerp(falloffStart, falloffEnd, value));
+
             }
         }
         return map;
     }
-    float Evaluate(float value,float a, float b)
+    float Evaluate(float value, float a, float b)
     {
         // float a = 4; //3
         // float b = 3; //2.2

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public static Spawner instance { get; private set; }
-    public GameObject cube;
-    public GameObject sphere;
+    public GameObject pHerbivore;
+    public GameObject pCarnivore;
     public GameObject mark;
     public GameObject foodPref;
     public GameObject waterPref;
@@ -33,7 +33,7 @@ public class Spawner : MonoBehaviour
     {
         Random.InitState(seed);
         SpawnCreature(herbivore, carnivore);
-        //SpawnMarks();
+        SpawnMarks();
         SpawnFood(food);
         SpawnWater();
      
@@ -53,8 +53,8 @@ public class Spawner : MonoBehaviour
     {
         GameObject creatureHolder = new("CreatureHolder");
         creatureHolder.transform.parent = transform;
-        SpawnOnNoise(sphere, 0.5f, 1f, herbivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
-        SpawnOnNoise(cube, 0.5f, 1f, carnivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
+        SpawnOnNoise(pHerbivore, 0.5f, 1f, herbivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
+        SpawnOnNoise(pCarnivore, 0.5f, 1f, carnivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
         // instance.name = $"H{i}";
     }
     private void SpawnWater()
@@ -88,7 +88,7 @@ public class Spawner : MonoBehaviour
                 if (noiseMap[x, y] <= 0.30f)
                 {
                     boundMap[x,y] = true;
-                    Instantiate(mark, new Vector3(x - (mapX / 2), 0, y * -1 + (mapZ / 2)), Quaternion.identity);
+                    //Instantiate(mark, new Vector3(x - (mapX / 2), 0, y * -1 + (mapZ / 2)), Quaternion.identity);
                 } else {
                     boundMap[x,y] = false;
                 }
