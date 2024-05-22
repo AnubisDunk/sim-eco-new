@@ -29,26 +29,26 @@ public class AiLookingForMate : AiState
     public void Update(AiAgent agent)
     {
         float step = agent.creature.moveSpeed * Time.deltaTime;
+        if (Utils.IsOutOfBounds(roamPosition)) roamPosition = GetRoamingPosition(agent);
         agent.creature.transform.position = Vector3.MoveTowards(agent.creature.transform.position, roamPosition, step);
         agent.creature.transform.LookAt(roamPosition, Vector3.up);
-        if (agent.creature.isSelectedByMale) roamPosition = agent.creature.desiredCreature.transform.position;
+        if (agent.creature.isSelectedByMale && agent.creature.desiredCreature != null) roamPosition = agent.creature.desiredCreature.transform.position;
         if (Vector3.Distance(agent.creature.transform.position, roamPosition) < 1f) roamPosition = GetRoamingPosition(agent);
         if (agent.creature.desiredCreature != null)
             if (Vector3.Distance(agent.creature.transform.position, agent.creature.desiredCreature.transform.position) < 1f && isFoundMate)
             {
-                Debug.Log("Mating with female");
+                // Debug.Log("Mating with female");
                 agent.creature.desiredCreature.Mating();
                 agent.creature.rest = 0;
                 isFoundMate = false;
                 agent.creature.desiredCreature = null;
                 agent.stateMachine.ChangeState(AiStateId.Wander);
             }
-        if (Utils.IsOutOfBounds(roamPosition)) roamPosition = GetRoamingPosition(agent);
         agent.creature.roamPosition = roamPosition;
     }
     private Vector3 GetRoamingPosition(AiAgent agent)
     {
-        if (isFoundMate) return otherCreature.transform.position;
+        if (isFoundMate && otherCreature != null) return otherCreature.transform.position;
         else return agent.transform.position + Utils.GetRandomDir() * agent.creature.senseRadius;
     }
 

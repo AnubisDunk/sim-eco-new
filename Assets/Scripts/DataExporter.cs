@@ -1,17 +1,24 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DataExporter : MonoBehaviour
 {
 
     private float nextUpdate = 1f;
-    private string filename = "";
+    private string filenamePopulation = "";
+    private string filenameGenes = "";
+    //private TextWriter twPopulation,twGenes;
     void Start()
     {
-        filename = Application.dataPath + "/data.csv";
-        TextWriter tw = new StreamWriter(filename, false);
-        tw.WriteLine("Time,Population");
-        tw.Close();
+        filenamePopulation = Application.dataPath + "/population.csv";
+        filenameGenes = Application.dataPath + "/genes.csv";
+        TextWriter twPopulation = new StreamWriter(filenamePopulation, false);
+        twPopulation.WriteLine("Time,Rabbit,Fox");
+        TextWriter twGenes = new StreamWriter(filenameGenes, false);
+        twGenes.WriteLine("Name,Type,Sex,SGene,Speed,Sense,Father,Mother");
+        twGenes.Close();
+        twPopulation.Close();
     }
 
     void Update()
@@ -25,10 +32,13 @@ public class DataExporter : MonoBehaviour
             UpdateEverySecond();
         }
     }
+   
+
     void UpdateEverySecond()
     {
-        TextWriter tw = new StreamWriter(filename, true);
-        tw.WriteLine($"{Mathf.FloorToInt(Time.time)},{Utils.creatureCount}");
-        tw.Close();
+        GlobalEventManager.SendTime();
+        TextWriter twPopulation = new StreamWriter(filenamePopulation, true);
+        twPopulation.WriteLine($"{Mathf.FloorToInt(Time.time)},{Utils.herbivoreCount},{Utils.carnivoreCount}");
+        twPopulation.Close();
     }
 }

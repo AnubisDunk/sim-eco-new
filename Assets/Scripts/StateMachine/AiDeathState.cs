@@ -10,8 +10,10 @@ public class AiDeathState : AiState
     }
     public void Enter(AiAgent agent)
     {
-        agent.creature.DestroyCreature();  
-        GlobalEventManager.SendCreatureKilled(); 
+        agent.creature.DestroyCreature();
+        if (agent.creature.creatureType == CreatureType.Herbivore) GlobalEventManager.SendHerbivoreKilled();
+        if (agent.creature.creatureType == CreatureType.Carnivore) GlobalEventManager.SendCarnivoreKilled();
+
     }
 
     public void Exit(AiAgent agent)
@@ -22,7 +24,7 @@ public class AiDeathState : AiState
     {
     }
 
-    public void OnTriggerEnter(AiAgent agent,Collider other)
+    public void OnTriggerEnter(AiAgent agent, Collider other)
     {
 
     }

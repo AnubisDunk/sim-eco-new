@@ -28,10 +28,11 @@ public class AiHungryState : AiState
     public void Update(AiAgent agent)
     {
         float step = agent.creature.moveSpeed * Time.deltaTime;
+        if (Utils.IsOutOfBounds(roamPosition)) roamPosition = GetRoamingPosition(agent);
         agent.creature.transform.position = Vector3.MoveTowards(agent.creature.transform.position, roamPosition, step);
         agent.creature.transform.LookAt(roamPosition, Vector3.up);
         if (Vector3.Distance(agent.creature.transform.position, roamPosition) < 1f) roamPosition = GetRoamingPosition(agent);
-        if(isFoundFood && food.isReadyToEat) roamPosition = foodPosition;
+        if (isFoundFood && food.isReadyToEat) roamPosition = foodPosition;
         if (Vector3.Distance(agent.creature.transform.position, foodPosition) < 1f && isFoundFood && food.isReadyToEat)
         {
             food.Eat();
@@ -43,7 +44,7 @@ public class AiHungryState : AiState
         }
         //if(isFoundFood && !food.isReadyToEat) isFoundFood = false;
 
-        if (Utils.IsOutOfBounds(roamPosition)) roamPosition = GetRoamingPosition(agent);
+
         agent.creature.roamPosition = roamPosition;
     }
     private Vector3 GetRoamingPosition(AiAgent agent)
@@ -52,15 +53,14 @@ public class AiHungryState : AiState
         //else 
         return agent.transform.position + Utils.GetRandomDir() * agent.creature.senseRadius;
     }
-    public void OnTriggerEnter(AiAgent agent,Collider other)
+    public void OnTriggerEnter(AiAgent agent, Collider other)
     {
-        if (other.gameObject.CompareTag("Bush") && !isFoundFood)
+        if (other.gameObject.CompareTag("Bush") && !isFoundFood && agent.creature.creatureType == CreatureType.Herbivore)
         {
             //agent.creature.bushes.Add(other.gameObject);
             foodPosition = other.transform.position;
             food = other.gameObject.GetComponent<Food>();
             isFoundFood = true;
-            
-        } 
+        }
     }
 }

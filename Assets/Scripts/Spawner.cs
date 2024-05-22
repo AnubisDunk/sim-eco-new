@@ -1,4 +1,5 @@
 
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Spawner : MonoBehaviour
     public int carnivore, herbivore = 0;
     public int food = 20;
     public int seed = 10;
+    
 
     //private float posX, posZ;
 
@@ -36,25 +38,26 @@ public class Spawner : MonoBehaviour
         SpawnMarks();
         SpawnFood(food);
         SpawnWater();
-     
         // Instantiate(foodPref,new Vector3(0, 5, 0),Quaternion.identity);
         // Debug.Log($"{Utils.noiseMap[0,0]}");
         //Instantiate(foodPref,new Vector3(Utils.noiseMap[30,30], 5, 30),Quaternion.identity);
 
     }
-
     // Update is called once per frame
     void Update()
     {
         Controls();
 
     }
+
     private void SpawnCreature(int herbivore, int carnivore)
     {
-        GameObject creatureHolder = new("CreatureHolder");
-        creatureHolder.transform.parent = transform;
-        SpawnOnNoise(pHerbivore, 0.5f, 1f, herbivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
-        SpawnOnNoise(pCarnivore, 0.5f, 1f, carnivore, GlobalEventManager.SendCreatureBorn, creatureHolder);
+        GameObject herbHodler = new("HerbivoreHolder");
+        herbHodler.transform.parent = transform;
+        GameObject carnHodler = new("CarnivoreHolder");
+        carnHodler.transform.parent = transform;
+        SpawnOnNoise(pHerbivore, 0.5f, 1f, herbivore, GlobalEventManager.SendHerbivoreBorn, herbHodler);
+        SpawnOnNoise(pCarnivore, 0.5f, 1f, carnivore, GlobalEventManager.SendCarnivoreBorn, carnHodler);
         // instance.name = $"H{i}";
     }
     private void SpawnWater()
@@ -76,21 +79,24 @@ public class Spawner : MonoBehaviour
         }
         // instance.name = $"H{i}";
     }
-    void SpawnMarks(){
+    void SpawnMarks()
+    {
         int mapX = Utils.mapX;
         int mapZ = Utils.mapZ;
         float[,] noiseMap = Utils.noiseMap;
-        bool[,] boundMap = new bool[mapX,mapZ];
+        bool[,] boundMap = new bool[mapX, mapZ];
         for (int x = 0; x < mapZ; x++)
         {
             for (int y = 0; y < mapX; y++)
             {
                 if (noiseMap[x, y] <= 0.30f)
                 {
-                    boundMap[x,y] = true;
+                    boundMap[x, y] = true;
                     //Instantiate(mark, new Vector3(x - (mapX / 2), 0, y * -1 + (mapZ / 2)), Quaternion.identity);
-                } else {
-                    boundMap[x,y] = false;
+                }
+                else
+                {
+                    boundMap[x, y] = false;
                 }
             }
         }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using TMPro;
 using System;
+using System.IO;
 
 
 public class Creature : MonoBehaviour
@@ -23,6 +24,7 @@ public class Creature : MonoBehaviour
     public float dLevel = 0.3f;
     public bool isFemale = false;
     public Creature desiredCreature;
+    public Creature predatorCreature;
     public Renderer render;
     public float size, rest, hunger, hungerCeil, hungerSpeed, thirst, thirstCeil, thirstSpeed, growSpeed, restSpeed;
     public float senseRadius;
@@ -44,7 +46,26 @@ public class Creature : MonoBehaviour
         agent.stateMachine.ChangeState(AiStateId.Wander);
         render.materials[1].color = isFemale ? new Color(1f, 0.25f, 0.96f, 1f) : new Color(0.19f, 0.23f, 0.92f, 1f);
         canvas = GetComponentInChildren<Canvas>();
-        name = NamesReader.names[UnityEngine.Random.Range(0, NamesReader.names.Length - 1)];
+        if (isFemale) name = NamesReader.namesFemale[UnityEngine.Random.Range(0, NamesReader.namesFemale.Length - 1)];
+        if (!isFemale) name = NamesReader.namesMale[UnityEngine.Random.Range(0, NamesReader.namesMale.Length - 1)];
+        WriteGene(creatureDna);
+    }
+    void WriteGene(DNA dna)
+    {
+
+        StreamWriter tw = new StreamWriter(Application.dataPath + "/genes.csv", true);
+        string sex = isFemale ? "Female" : "Male";
+        string fatherString = father != null ? father.name : "-";
+        string motherString = mother != null ? mother.name : "-";
+        tw.Write($"{name},{creatureType},{sex},");
+        for (int i = 0; i < dna.genes.Length; i++)
+        {
+            tw.Write($"{dna.genes[i]},");
+        }
+        tw.Write($"{fatherString},{motherString},");
+        tw.WriteLine("");
+        tw.Close();
+
     }
     void InitGenes(DNA dna)
     {
@@ -74,7 +95,7 @@ public class Creature : MonoBehaviour
     {
         if (transform.position.x >= Utils.mapX / 2 || (transform.position.z >= Utils.mapZ / 2) || (transform.position.x <= -(Utils.mapX / 2)) || (transform.position.z <= -(Utils.mapZ / 2)))
         {
-            //Debug.Log("Out");
+            Debug.Log("Out");
             Kill();
         }
     }
@@ -105,17 +126,31 @@ public class Creature : MonoBehaviour
         instance.father = desiredCreature;
         instance.desiredCreature = null;
         instance.mother = this;
-        GlobalEventManager.SendCreatureBorn();
+        if (instance.creatureType == CreatureType.Herbivore) GlobalEventManager.SendHerbivoreBorn();
+        if (instance.creatureType == CreatureType.Carnivore) GlobalEventManager.SendCarnivoreBorn();
     }
     void States()
     {
+        //if(predatorCreature != null && agent.stateMachine.currentState != AiStateId.Fleeing) agent.stateMachine.ChangeState(AiStateId.Fleeing); 
         if ((hunger >= hungerCeil * dLevel) && !isHungry)
         {
-            if (agent.stateMachine.currentState != AiStateId.LookingForFood)
+            if (creatureType == CreatureType.Herbivore)
             {
-                isHungry = true;
-                agent.stateMachine.ChangeState(AiStateId.LookingForFood);
+                if (agent.stateMachine.currentState != AiStateId.LookingForFood)
+                {
+                    isHungry = true;
+                    agent.stateMachine.ChangeState(AiStateId.LookingForFood);
+                }
             }
+            if (creatureType == CreatureType.Carnivore)
+            {
+                if (agent.stateMachine.currentState != AiStateId.LookingForPrey)
+                {
+                    isHungry = true;
+                    agent.stateMachine.ChangeState(AiStateId.LookingForPrey);
+                }
+            }
+
         }
 
         if (thirst >= thirstCeil * dLevel && !isHungry)
@@ -146,6 +181,17 @@ public class Creature : MonoBehaviour
         isReadyToMate = size >= 100 && rest >= 100;
 
     }
+    // public void OnTriggerEnter(Collider other)
+    // {
+    //     if(creatureType == CreatureType.Herbivore) {
+
+    //     }
+
+    //     if (other.gameObject.CompareTag("Creature") && other.GetComponent<Creature>().creatureType == CreatureType.Carnivore)
+    //     {
+    //         Debug.Log("Predator");
+    //     }
+    // }
 
     public void Kill()
     {
@@ -165,6 +211,5 @@ public class Creature : MonoBehaviour
         Handles.DrawWireDisc(roamPosition, new Vector3(0, 1, 0), 0.5f);
         Handles.DrawLine(transform.position, roamPosition);
 #endif
-
     }
 }

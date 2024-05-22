@@ -5,8 +5,10 @@
             <ui:Label tabindex="-1" text="PAUSE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Pause" style="position: relative; font-size: 50px; background-color: rgba(144, 144, 144, 0); color: rgb(255, 255, 255); text-overflow: clip; -unity-font-style: bold;" />
         </ui:VisualElement>
         <ui:VisualElement name="TopMenu" class="menuBg" style="flex-grow: 1; align-self: flex-end; padding-right: 20px;">
-            <ui:Label tabindex="-1" text="Creatures: " parse-escape-sequences="true" display-tooltip-when-elided="true" name="Creatures" class="header" style="font-size: 20px;" />
-            <ui:Label tabindex="-1" text="Creatures: " parse-escape-sequences="true" display-tooltip-when-elided="true" name="Food" class="header" style="font-size: 20px;" />
+            <ui:Label tabindex="-1" text="Time: " parse-escape-sequences="true" display-tooltip-when-elided="true" name="Time" class="header" style="font-size: 25px; color: rgb(255, 137, 0); -unity-text-outline-width: 0; -unity-text-outline-color: rgb(0, 0, 0);" />
+            <ui:Label tabindex="-1" text="Creatures: " parse-escape-sequences="true" display-tooltip-when-elided="true" name="Herbivore" class="header" style="font-size: 20px;" />
+            <ui:Label tabindex="-1" text="Carnivore:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Carnivore" class="header" style="font-size: 20px;" />
+            <ui:Label tabindex="-1" text="Food:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Food" class="header" style="font-size: 20px;" />
         </ui:VisualElement>
         <ui:VisualElement name="SideMenu" style="flex-grow: 1;" />
         <ui:VisualElement name="BottomMenu" class="menuBg" style="flex-grow: 0; align-items: center; justify-content: flex-end; flex-direction: column; flex-wrap: nowrap; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: upper-left; flex-basis: auto; align-self: stretch;">

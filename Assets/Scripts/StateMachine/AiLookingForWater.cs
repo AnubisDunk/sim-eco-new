@@ -21,23 +21,23 @@ public class AiLookingForWater : AiState
     }
     private Vector3 GetRoamingPosition(AiAgent agent)
     {
-        if(isFoundWater) return waterPosition;
+        if (isFoundWater) return waterPosition;
         return agent.transform.position + Utils.GetRandomDir() * agent.creature.senseRadius;
     }
 
     public void Exit(AiAgent agent)
     {
-        
+
     }
 
 
-    public void OnTriggerEnter(AiAgent agent,Collider other)
+    public void OnTriggerEnter(AiAgent agent, Collider other)
     {
         if (other.gameObject.CompareTag("Water") && !isFoundWater)
         {
             waterPosition = other.transform.position;
             isFoundWater = true;
-        } 
+        }
     }
 
     public void Update(AiAgent agent)
@@ -57,5 +57,5 @@ public class AiLookingForWater : AiState
         if (Utils.IsOutOfBounds(roamPosition)) roamPosition = GetRoamingPosition(agent);
         agent.creature.roamPosition = roamPosition;
     }
-    
+
 }

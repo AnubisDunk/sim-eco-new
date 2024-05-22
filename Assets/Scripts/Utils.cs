@@ -23,7 +23,9 @@ public static class Utils
         }
         else return false;
     }
-    public static int creatureCount;
+    
+    public static int herbivoreCount;
+    public static int carnivoreCount;
     public static float[,] noiseMap;
     public static bool[,] boundMap;
     public static int mapX, mapZ;
