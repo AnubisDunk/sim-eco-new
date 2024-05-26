@@ -21,12 +21,12 @@ public class Creature : MonoBehaviour
     public DNA creatureDna;
 
     [Range(0, 1)]
-    public float dLevel = 0.3f;
+    //public float dLevel = 0.3f;
     public bool isFemale = false;
     public Creature desiredCreature;
     public Creature predatorCreature;
     public Renderer render;
-    public float size, rest, hunger, hungerCeil, hungerSpeed, thirst, thirstCeil, thirstSpeed, growSpeed, restSpeed;
+    public float size, rest, hunger, hungerLevel, hungerCeil, thirstCeil, hungerSpeed, thirst, thirstLevel, thirstSpeed, growSpeed, restSpeed;
     public float senseRadius;
     public bool isReadyToMate = false;
     public TMP_Text uiTextState;
@@ -80,6 +80,12 @@ public class Creature : MonoBehaviour
         isFemale = creatureDna.genes[0] > 0.5f;
         moveSpeed = creatureDna.genes[1];
         senseRadius = creatureDna.genes[2];
+        hungerSpeed = creatureDna.genes[3];
+        thirstSpeed = creatureDna.genes[4];
+        hungerLevel = creatureDna.genes[5];
+        thirstLevel = creatureDna.genes[6];
+        growSpeed = creatureDna.genes[7];
+        restSpeed = creatureDna.genes[8];
         //creatureDna.ShowDNA();
     }
     public void CreatureUpdate()
@@ -120,7 +126,7 @@ public class Creature : MonoBehaviour
         //instance.creatureDna = creatureDna;
         //Debug.Log($"{creatureDna}/ {desiredCreature.creatureDna}");
         // if (desiredCreature == null) Debug.Log("YOOOOOOO");
-        GeneticAlgorithm genetic = new(creatureDna, desiredCreature.creatureDna, 0.25f);
+        GeneticAlgorithm genetic = new(creatureDna, desiredCreature.creatureDna, 0.05f);
         DNA dna = genetic.Execute();
         instance.creatureDna = dna;
         instance.father = desiredCreature;
@@ -132,7 +138,7 @@ public class Creature : MonoBehaviour
     void States()
     {
         //if(predatorCreature != null && agent.stateMachine.currentState != AiStateId.Fleeing) agent.stateMachine.ChangeState(AiStateId.Fleeing); 
-        if ((hunger >= hungerCeil * dLevel) && !isHungry)
+        if ((hunger >= hungerCeil * hungerLevel) && !isHungry)
         {
             if (creatureType == CreatureType.Herbivore)
             {
@@ -153,13 +159,13 @@ public class Creature : MonoBehaviour
 
         }
 
-        if (thirst >= thirstCeil * dLevel && !isHungry)
+        if (thirst >= thirstCeil * thirstLevel && !isHungry)
         {
             if (agent.stateMachine.currentState != AiStateId.LookingForWater)
                 agent.stateMachine.ChangeState(AiStateId.LookingForWater);
         }
 
-        if (hunger <= hungerCeil * dLevel && thirst <= thirstCeil * dLevel && !isHungry && agent.creature.isReadyToMate && agent.stateMachine.currentState != AiStateId.LookingForMate)
+        if (hunger <= hungerCeil * hungerLevel && thirst <= thirstLevel && !isHungry && agent.creature.isReadyToMate && agent.stateMachine.currentState != AiStateId.LookingForMate)
             agent.stateMachine.ChangeState(AiStateId.LookingForMate);
     }
 

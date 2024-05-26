@@ -2,7 +2,7 @@ using UnityEngine;
 public class DNA
 {
     public float[] genes;
-    private Gene[] genome;
+    public Gene[] genome;
     // public DNA(float[] values)
     // {
     //     genes = values;

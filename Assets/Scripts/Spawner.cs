@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
     public int carnivore, herbivore = 0;
     public int food = 20;
     public int seed = 10;
-    
+
 
     //private float posX, posZ;
 
@@ -133,6 +133,16 @@ public class Spawner : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GlobalEventManager.SendPause();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("Time x2");
+            Time.timeScale = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("Time x1");
+            Time.timeScale = 1;
         }
     }
 }
