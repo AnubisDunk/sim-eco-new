@@ -47,6 +47,8 @@ public class Food : MonoBehaviour
         else
         {
             isReadyToEat = true;
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
             render.enabled = true;
             col.enabled = true;
         }

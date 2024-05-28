@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d50a086deda87064e9c90a6d705846be, type: 3}
-  m_Name: HungerLevel
+  m_Name: Sex
   m_EditorClassIdentifier: 
-  geneName: Hunger Level
-  minValue: 0.3
-  maxValue: 0.3
+  geneName: Sex
+  minValue: 0
+  maxValue: 1

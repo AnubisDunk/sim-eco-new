@@ -4,6 +4,7 @@ using UnityEditor;
 using TMPro;
 using System;
 using System.IO;
+using UnityEngine.SocialPlatforms;
 
 
 public class Creature : MonoBehaviour
@@ -78,6 +79,7 @@ public class Creature : MonoBehaviour
             creatureDna = dna;
         }
         isFemale = creatureDna.genes[0] > 0.5f;
+        //isFemale = UnityEngine.Random.Range(0, 1f) > 0.5f;
         moveSpeed = creatureDna.genes[1];
         senseRadius = creatureDna.genes[2];
         hungerSpeed = creatureDna.genes[3];
@@ -91,8 +93,12 @@ public class Creature : MonoBehaviour
     public void CreatureUpdate()
     {
         uiTextState.text = agent.stateMachine.currentState.ToString();
-        canvas.transform.LookAt(Camera.main.transform);
-        canvas.transform.localRotation *= Quaternion.Euler(0, 180, 0);
+        if (!Utils.hideUi)
+        {
+            canvas.transform.LookAt(Camera.main.transform);
+            canvas.transform.localRotation *= Quaternion.Euler(0, 180, 0);
+        }
+
         Living();
         States();
         Boundries();
@@ -119,14 +125,14 @@ public class Creature : MonoBehaviour
     }
     void Birth()
     {
-        var instance = Instantiate(this, transform.position, Quaternion.identity);
+        var instance = Instantiate(this, transform.position, Quaternion.identity, transform.parent);
         instance.size = 0;
         instance.name = $"{name}+";
         instance.hunger = 0;
         //instance.creatureDna = creatureDna;
         //Debug.Log($"{creatureDna}/ {desiredCreature.creatureDna}");
         // if (desiredCreature == null) Debug.Log("YOOOOOOO");
-        GeneticAlgorithm genetic = new(creatureDna, desiredCreature.creatureDna, 0.05f);
+        GeneticAlgorithm genetic = new(creatureDna, desiredCreature.creatureDna, 2, 0.00f);
         DNA dna = genetic.Execute();
         instance.creatureDna = dna;
         instance.father = desiredCreature;
@@ -165,7 +171,7 @@ public class Creature : MonoBehaviour
                 agent.stateMachine.ChangeState(AiStateId.LookingForWater);
         }
 
-        if (hunger <= hungerCeil * hungerLevel && thirst <= thirstLevel && !isHungry && agent.creature.isReadyToMate && agent.stateMachine.currentState != AiStateId.LookingForMate)
+        if (hunger <= hungerCeil * hungerLevel && thirst <= thirstCeil * thirstLevel && !isHungry && agent.creature.isReadyToMate && agent.stateMachine.currentState != AiStateId.LookingForMate)
             agent.stateMachine.ChangeState(AiStateId.LookingForMate);
     }
 
@@ -185,6 +191,17 @@ public class Creature : MonoBehaviour
         }
         if ((hunger >= hungerCeil || thirst >= thirstCeil) && agent.stateMachine.currentState != AiStateId.Dead) Kill();
         isReadyToMate = size >= 100 && rest >= 100;
+
+        transform.localScale = 0.01f * size * Vector3.one;
+
+        if (Utils.hideUi)
+        {
+            canvas.enabled = false;
+        }
+        else
+        {
+            canvas.enabled = true;
+        }
 
     }
     // public void OnTriggerEnter(Collider other)

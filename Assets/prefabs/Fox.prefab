@@ -444,18 +444,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 648031a9f41017d479da470ec436deee, type: 2}
   - {fileID: 11400000, guid: bbfed9f901a64bf4a9a129771fb6ba3e, type: 2}
   - {fileID: 11400000, guid: 3104e6c7bbfcb3a49903cb2726a2497c, type: 2}
+  - {fileID: 11400000, guid: 11316bd271be6d84aa25d07a9741c3bd, type: 2}
+  - {fileID: 11400000, guid: f30b05b98496c8a47870154c34306611, type: 2}
+  - {fileID: 11400000, guid: 9358114f81365d94e8ed5cbaf05feb2c, type: 2}
+  - {fileID: 11400000, guid: f03cf28abea82a24b89ebb295017d218, type: 2}
+  - {fileID: 11400000, guid: 4bda7912c272b18468e0564e4039d490, type: 2}
+  - {fileID: 11400000, guid: 750095c37f9b58e47a9056fbe0f4e80a, type: 2}
   isSelectedByMale: 0
-  dLevel: 0.3
   isFemale: 0
   desiredCreature: {fileID: 0}
+  predatorCreature: {fileID: 0}
   render: {fileID: 0}
   size: 100
   rest: 100
   hunger: 0
+  hungerLevel: 0
   hungerCeil: 100
+  thirstCeil: 100
   hungerSpeed: 1
   thirst: 0
-  thirstCeil: 100
+  thirstLevel: 0
   thirstSpeed: 3
   growSpeed: 10
   restSpeed: 10

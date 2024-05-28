@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     public static Spawner instance { get; private set; }
     public GameObject pHerbivore;
     public GameObject pCarnivore;
-    public GameObject mark;
+    //public GameObject mark;
     public GameObject foodPref;
     public GameObject waterPref;
 
@@ -134,15 +134,34 @@ public class Spawner : MonoBehaviour
         {
             GlobalEventManager.SendPause();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("Time x1");
+            Time.timeScale = 1;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             Debug.Log("Time x2");
             Time.timeScale = 2;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            Debug.Log("Time x1");
-            Time.timeScale = 1;
+            Debug.Log("Time x3");
+            Time.timeScale = 3;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Debug.Log("Time x5");
+            Time.timeScale = 5;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Debug.Log("Time x10");
+            Time.timeScale = 10;
+        }
+         if (Input.GetKeyDown(KeyCode.H))
+        {
+            Utils.hideUi = !Utils.hideUi;
         }
     }
 }

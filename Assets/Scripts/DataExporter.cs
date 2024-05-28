@@ -14,7 +14,7 @@ public class DataExporter : MonoBehaviour
         filenamePopulation = Application.dataPath + "/population.csv";
         filenameGenes = Application.dataPath + "/genes.csv";
         TextWriter twPopulation = new StreamWriter(filenamePopulation, false);
-        twPopulation.WriteLine("Time,Rabbit,Fox");
+        twPopulation.WriteLine("Time,Rabbit,Fox,FPS");
         TextWriter twGenes = new StreamWriter(filenameGenes, false);
         twGenes.WriteLine("Name,Type,Sex,SGene,Speed,Sense,Hunger Speed,Thirst Speed,Hunger Level,Thirst Level,Grow Speed, Rest Speed,Father,Mother");
         twGenes.Close();
@@ -38,7 +38,7 @@ public class DataExporter : MonoBehaviour
     {
         GlobalEventManager.SendTime();
         TextWriter twPopulation = new StreamWriter(filenamePopulation, true);
-        twPopulation.WriteLine($"{Mathf.FloorToInt(Time.time)},{Utils.herbivoreCount},{Utils.carnivoreCount}");
+        twPopulation.WriteLine($"{Mathf.FloorToInt(Time.time)},{Utils.herbivoreCount},{Utils.carnivoreCount},{(int)(1.0f / Time.unscaledDeltaTime)}");
         twPopulation.Close();
     }
 }
