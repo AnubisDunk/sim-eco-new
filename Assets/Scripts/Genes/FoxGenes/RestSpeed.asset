@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RestSpeed
   m_EditorClassIdentifier: 
   geneName: Rest Speed
-  minValue: 20
-  maxValue: 20
+  minValue: 5
+  maxValue: 5

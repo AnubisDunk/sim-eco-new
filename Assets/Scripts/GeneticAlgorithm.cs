@@ -1,30 +1,39 @@
 using UnityEngine;
 
+public enum Crossower{
+        OnePointCrossover = 0,
+        TwoPointCrossover = 1,
+        UniformCrossover = 2,
+    }
 public class GeneticAlgorithm
 {
     DNA mother, father, child;
     float mutationRate;
     int crossower;
 
-    public GeneticAlgorithm(DNA mother, DNA father, int crossower, float mutationRate)
+    public GeneticAlgorithm(DNA mother, DNA father, Crossower crossower, float mutationRate)
     {
         this.mother = mother;
         this.father = father;
-        this.crossower = crossower;
+        this.crossower = (int)crossower;
         this.mutationRate = mutationRate;
     }
+
     public DNA Execute()
     {
         switch (crossower)
         {
             case 0:
                 OnePointCrossover();
+                Debug.Log("OnePoint");
                 break;
             case 1:
                 TwoPointCrossover();
+                Debug.Log("TwoPoint");
                 break;
             case 2:
                 UniformCrossover();
+                Debug.Log("Uniform");
                 break;
             default:
                 OnePointCrossover();
@@ -41,13 +50,11 @@ public class GeneticAlgorithm
             {
                 float mgene = Random.Range(child.genome[i].minValue, child.genome[i].maxValue);
                 child.genes[i] = Mathf.Round(mgene * 100f) * 0.01f;
-                Debug.Log("Mutate");
             }
         }
     }
     void OnePointCrossover()
     {
-
         child = mother;
         int cut = Random.Range(0, mother.genes.Length);
         for (int i = 0; i < cut; i++)
@@ -61,7 +68,6 @@ public class GeneticAlgorithm
     }
     void TwoPointCrossover()
     {
-
         child = mother;
         int cut = Random.Range(0, mother.genes.Length);
         int cut2 = Random.Range(cut, mother.genes.Length);
@@ -80,7 +86,6 @@ public class GeneticAlgorithm
     }
     void UniformCrossover()
     {
-
         child = mother;
         for (int i = 0; i < father.genes.Length; i++)
         {

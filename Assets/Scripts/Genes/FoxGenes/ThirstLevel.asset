@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ThirstLevel
   m_EditorClassIdentifier: 
   geneName: Thirst Level
-  minValue: 0.3
-  maxValue: 0.3
+  minValue: 0.1
+  maxValue: 0.9

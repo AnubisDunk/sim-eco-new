@@ -258,6 +258,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8936943581453431362}
+  - {fileID: 6036992372766894706}
   - {fileID: 6903179187712715546}
   - {fileID: 4981526452016513329}
   m_Father: {fileID: 8891410727250812779}
@@ -441,15 +442,15 @@ MonoBehaviour:
   mother: {fileID: 0}
   agent: {fileID: 0}
   genome:
-  - {fileID: 11400000, guid: 648031a9f41017d479da470ec436deee, type: 2}
-  - {fileID: 11400000, guid: bbfed9f901a64bf4a9a129771fb6ba3e, type: 2}
-  - {fileID: 11400000, guid: 3104e6c7bbfcb3a49903cb2726a2497c, type: 2}
-  - {fileID: 11400000, guid: 11316bd271be6d84aa25d07a9741c3bd, type: 2}
-  - {fileID: 11400000, guid: f30b05b98496c8a47870154c34306611, type: 2}
-  - {fileID: 11400000, guid: 9358114f81365d94e8ed5cbaf05feb2c, type: 2}
-  - {fileID: 11400000, guid: f03cf28abea82a24b89ebb295017d218, type: 2}
-  - {fileID: 11400000, guid: 4bda7912c272b18468e0564e4039d490, type: 2}
-  - {fileID: 11400000, guid: 750095c37f9b58e47a9056fbe0f4e80a, type: 2}
+  - {fileID: 11400000, guid: 4574a4740678b6c4380925b06e43824f, type: 2}
+  - {fileID: 11400000, guid: 9bbc67c67d5756246a54137fc15930b8, type: 2}
+  - {fileID: 11400000, guid: caafe3e8386429d438b1686c7da8c17c, type: 2}
+  - {fileID: 11400000, guid: 8adba893cc50acf4bb2faf3d13ba220a, type: 2}
+  - {fileID: 11400000, guid: 847fd207cc5e79e448f3f1c0c2927013, type: 2}
+  - {fileID: 11400000, guid: a626c9d9784daa048b9ba8b2eac2c6b5, type: 2}
+  - {fileID: 11400000, guid: 7a9c5edb5e5fdd94489b680076eaf959, type: 2}
+  - {fileID: 11400000, guid: 76936dcdecb2d654a959ced325b2f7ac, type: 2}
+  - {fileID: 11400000, guid: 4c3c3bddde41a8b40bfecbbfd4b38d12, type: 2}
   isSelectedByMale: 0
   isFemale: 0
   desiredCreature: {fileID: 0}
@@ -470,6 +471,7 @@ MonoBehaviour:
   senseRadius: 0
   isReadyToMate: 0
   uiTextState: {fileID: 5867826691366593028}
+  uiAge: {fileID: 5481264983767019132}
   uiHunger: {fileID: 6903179187712715546}
   uiThirst: {fileID: 4981526452016513329}
   isHungry: 0
@@ -624,6 +626,140 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: State
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -1.2711539, y: 0.12298012, z: -1.2834995, w: 0.5556333}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7419131279853321486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6036992372766894706}
+  - component: {fileID: 3767067581263644298}
+  - component: {fileID: 5481264983767019132}
+  m_Layer: 5
+  m_Name: Age
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6036992372766894706
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419131279853321486}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.289}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4986703879285430603}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -0.45999998}
+  m_SizeDelta: {x: 3, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3767067581263644298
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419131279853321486}
+  m_CullTransparentMesh: 1
+--- !u!114 &5481264983767019132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419131279853321486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Age
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

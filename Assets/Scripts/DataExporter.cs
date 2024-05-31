@@ -16,7 +16,7 @@ public class DataExporter : MonoBehaviour
         TextWriter twPopulation = new StreamWriter(filenamePopulation, false);
         twPopulation.WriteLine("Time,Rabbit,Fox,FPS");
         TextWriter twGenes = new StreamWriter(filenameGenes, false);
-        twGenes.WriteLine("Name,Type,Sex,SGene,Speed,Sense,Hunger Speed,Thirst Speed,Hunger Level,Thirst Level,Grow Speed, Rest Speed,Father,Mother");
+        twGenes.WriteLine("Name,Type,Sex,SGene,Speed,Sense,Hunger Speed,Thirst Speed,Hunger Level,Thirst Level,Grow Speed, Rest Speed,Father,Mother,BirthTime,Age");
         twGenes.Close();
         twPopulation.Close();
     }

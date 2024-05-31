@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HungerSpeed
   m_EditorClassIdentifier: 
   geneName: Hunger Speed
-  minValue: 4
-  maxValue: 4
+  minValue: 1
+  maxValue: 10

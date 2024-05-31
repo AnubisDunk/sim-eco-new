@@ -31,11 +31,18 @@ public class Creature : MonoBehaviour
     public float senseRadius;
     public bool isReadyToMate = false;
     public TMP_Text uiTextState;
+    public TMP_Text uiAge;
     public RectTransform uiHunger;
     public RectTransform uiThirst;
     public bool isHungry, isThirsty;
     private SphereCollider scollider;
     private Canvas canvas;
+
+    private float lifetime = 0f;
+    private float birthtime = 0f;
+    private int intLifetime = 0;
+    private int intBirthtime = 0;
+    private string fatherString, motherString;
 
     public void Init()
     {
@@ -49,21 +56,25 @@ public class Creature : MonoBehaviour
         canvas = GetComponentInChildren<Canvas>();
         if (isFemale) name = NamesReader.namesFemale[UnityEngine.Random.Range(0, NamesReader.namesFemale.Length - 1)];
         if (!isFemale) name = NamesReader.namesMale[UnityEngine.Random.Range(0, NamesReader.namesMale.Length - 1)];
-        WriteGene(creatureDna);
+        birthtime = Time.time;
+        intBirthtime = (int)(birthtime % 60);
+        //WriteGene(creatureDna);
+        fatherString = father != null ? father.name : "-";
+        motherString = mother != null ? mother.name : "-";
     }
     void WriteGene(DNA dna)
     {
 
         StreamWriter tw = new StreamWriter(Application.dataPath + "/genes.csv", true);
         string sex = isFemale ? "Female" : "Male";
-        string fatherString = father != null ? father.name : "-";
-        string motherString = mother != null ? mother.name : "-";
+        // string fatherString = father != null ? father.name : "-";
+        // string motherString = mother != null ? mother.name : "-";
         tw.Write($"{name},{creatureType},{sex},");
         for (int i = 0; i < dna.genes.Length; i++)
         {
             tw.Write($"{dna.genes[i]},");
         }
-        tw.Write($"{fatherString},{motherString},");
+        tw.Write($"{fatherString},{motherString},{intBirthtime},{intLifetime}");
         tw.WriteLine("");
         tw.Close();
 
@@ -132,7 +143,7 @@ public class Creature : MonoBehaviour
         //instance.creatureDna = creatureDna;
         //Debug.Log($"{creatureDna}/ {desiredCreature.creatureDna}");
         // if (desiredCreature == null) Debug.Log("YOOOOOOO");
-        GeneticAlgorithm genetic = new(creatureDna, desiredCreature.creatureDna, 2, 0.00f);
+        GeneticAlgorithm genetic = new(creatureDna, desiredCreature.creatureDna, Utils.genCrossower, Utils.genMutation);
         DNA dna = genetic.Execute();
         instance.creatureDna = dna;
         instance.father = desiredCreature;
@@ -202,7 +213,9 @@ public class Creature : MonoBehaviour
         {
             canvas.enabled = true;
         }
-
+        lifetime += Time.deltaTime;
+        intLifetime = (int)(lifetime % 60);
+        uiAge.text = intLifetime.ToString();
     }
     // public void OnTriggerEnter(Collider other)
     // {
@@ -215,7 +228,9 @@ public class Creature : MonoBehaviour
     //         Debug.Log("Predator");
     //     }
     // }
-
+    void OnApplicationQuit(){
+        Kill();
+    }
     public void Kill()
     {
         agent.stateMachine.ChangeState(AiStateId.Dead);
@@ -223,6 +238,7 @@ public class Creature : MonoBehaviour
 
     public void DestroyCreature()
     {
+        WriteGene(creatureDna);
         Destroy(gameObject);
     }
     private void OnDrawGizmos()

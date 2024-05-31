@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   geneName: Thirst Speed
   minValue: 1
-  maxValue: 1
+  maxValue: 5

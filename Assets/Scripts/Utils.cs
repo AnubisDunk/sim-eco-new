@@ -36,6 +36,9 @@ public static class Utils
 
     public static bool hideUi = false;
     public static int carnivoreCount;
+
+    public static Crossower genCrossower;
+    public static float genMutation;
     public static float[,] noiseMap;
     public static bool[,] boundMap;
     public static int mapX, mapZ;

@@ -14,6 +14,8 @@ public class Spawner : MonoBehaviour
 
     public int carnivore, herbivore = 0;
     public int food = 20;
+    public Crossower crossower;
+    public float mutation = 0;
     public int seed = 10;
 
 
@@ -34,6 +36,8 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         Random.InitState(seed);
+        Utils.genMutation = mutation;
+        Utils.genCrossower = crossower;
         SpawnCreature(herbivore, carnivore);
         SpawnMarks();
         SpawnFood(food);
