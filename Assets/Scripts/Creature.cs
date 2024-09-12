@@ -245,9 +245,9 @@ public class Creature : MonoBehaviour
     {
         Vector3 origin = transform.position;
 #if UNITY_EDITOR
-        Handles.color = new Color(1, 1, 1, 0.4f);
+        Handles.color = new Color(1, 1, 1, 1f);
         Handles.DrawWireDisc(origin, new Vector3(0, 1, 0), senseRadius);
-        Handles.DrawWireDisc(roamPosition, new Vector3(0, 1, 0), 0.5f);
+        Handles.DrawWireDisc(roamPosition, new Vector3(0, 1, 0), 1f);
         Handles.DrawLine(transform.position, roamPosition);
 #endif
     }
